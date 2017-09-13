@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationLibrary", "EducationLibrary\EducationLibrary.csproj", "{9E973388-72A5-4689-84D7-F102D3650195}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestEducationLibrary", "TestEducationLibrary\TestEducationLibrary.csproj", "{F708C3B5-81ED-4FF8-983C-AE9F323A79BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9E973388-72A5-4689-84D7-F102D3650195}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E973388-72A5-4689-84D7-F102D3650195}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E973388-72A5-4689-84D7-F102D3650195}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F708C3B5-81ED-4FF8-983C-AE9F323A79BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F708C3B5-81ED-4FF8-983C-AE9F323A79BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F708C3B5-81ED-4FF8-983C-AE9F323A79BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F708C3B5-81ED-4FF8-983C-AE9F323A79BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
