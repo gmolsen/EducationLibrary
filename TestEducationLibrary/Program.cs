@@ -11,7 +11,7 @@ namespace TestEducationLibrary {
 			StudentCollection students = StudentCollection.Select();
 			Student greg = StudentCollection.Select(106);
 			Student doesNotExist = StudentCollection.Select(0); //null test
-			Student std = new Student();
+			/* Student std = new Student();
 			std.FirstName = "Test";
 			std.LastName = "Test";
 			std.Address = "Test";
@@ -24,7 +24,14 @@ namespace TestEducationLibrary {
 			std.MajorId = 2;
 			std.SAT = 1600;
 			std.GPA = 4.0;
-			bool rc = StudentCollection.Insert(std);
+			bool rc = StudentCollection.Insert(std); */
+
+			Student chgName = StudentCollection.Select(106);
+			chgName.FirstName = "Noah";
+			chgName.LastName = "Phense";
+			bool rc = StudentCollection.Update(chgName);
+
+			rc = StudentCollection.Delete(108, 109, 110, 111);
 		}
 		static void Main(string[] args) {
 			new Program().Run();

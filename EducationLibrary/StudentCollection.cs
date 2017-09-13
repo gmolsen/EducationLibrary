@@ -10,11 +10,13 @@ namespace EducationLibrary {
 	//our StudentCollection class is a list of type Student
 	public class StudentCollection : List<Student> {
 
+		//connStr is a property to avoid duplication
+		private static string connStr = "Server=STUDENT05;Database=DotNetDatabase;Trusted_Connection=yes";
+
 		//static methods can be called without creating an instance
 		//this method is a StudentCollection type method, meaning it has the same properties as List<Student>
 		public static StudentCollection Select() {
-			//establishing a connection with SQL database
-			string connStr = "Server=STUDENT05;Database=DotNetDatabase;Trusted_Connection=yes";
+			//establishing a connection with SQL database (connStr)
 			SqlConnection connection = new SqlConnection(connStr);
 			connection.Open();
 			if (connection.State != System.Data.ConnectionState.Open) {
@@ -41,7 +43,6 @@ namespace EducationLibrary {
 		}
 
 			public static Student Select(int id) {
-				string connStr = "Server=STUDENT05;Database=DotNetDatabase;Trusted_Connection=yes";
 				SqlConnection connection = new SqlConnection(connStr);
 				connection.Open();
 				if (connection.State != System.Data.ConnectionState.Open) {
@@ -67,7 +68,6 @@ namespace EducationLibrary {
 			}
 		}
 		public static bool Insert(Student student) {
-			string connStr = "Server=STUDENT05;Database=DotNetDatabase;Trusted_Connection=yes";
 			SqlConnection connection = new SqlConnection(connStr);
 			connection.Open();
 			if (connection.State != System.Data.ConnectionState.Open) {
@@ -86,10 +86,46 @@ namespace EducationLibrary {
 			return (recsAffected == 1);
 		}
 		public static bool Update(Student student) {
-			return false;
+			SqlConnection connection = new SqlConnection(connStr);
+			connection.Open();
+			if (connection.State != System.Data.ConnectionState.Open) {
+				Console.WriteLine("SQL connection did not open.");
+				return false;
+			}
+			StudentCollection students = new StudentCollection();
+			var sql = $"UPDATE Student Set " +
+						$"FirstName = '{student.FirstName}'," +
+						$"LastName = '{student.LastName}'," +
+						$"Address = '{student.Address}'," +
+						$"City = '{student.City}'," +
+						$"State = '{student.State}'," +
+						$"Zipcode = '{student.Zipcode}'," +
+						$"PhoneNumber = '{student.PhoneNumber}'," +
+						$"Email = '{student.Email }'," +
+						$"Birthday = '{student.Birthday}'," +
+						$"MajorId = {student.MajorId}," +
+						$"SAT = {student.SAT }," +
+						$"GPA = {student.GPA}" +
+						$" WHERE ID = {student.Id}";
+
+			SqlCommand cmd = new SqlCommand(sql, connection);
+			var recsAffected = cmd.ExecuteNonQuery();
+			return (recsAffected == 1);
 		}
-		public static bool Delete(int id) {
-			return false;
+		public static bool Delete(int id, int id2, int id3, int id4) {
+			SqlConnection connection = new SqlConnection(connStr);
+			connection.Open();
+			if (connection.State != System.Data.ConnectionState.Open) {
+				Console.WriteLine("SQL connection did not open.");
+				return false;
+			}
+			StudentCollection students = new StudentCollection();
+			var sql = $"Delete from Student " +
+						$" WHERE ID = {id} & {id2} & {id3} & {id4}";
+
+			SqlCommand cmd = new SqlCommand(sql, connection);
+			var recsAffected = cmd.ExecuteNonQuery();
+			return (recsAffected == 1);
 		}
 
 	}
