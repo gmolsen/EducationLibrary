@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +20,24 @@ namespace EducationLibrary {
 		public int MajorId { get; set; }
 		public int SAT { get; set; }
 		public double GPA { get; set; }
+
+		public void SetDataFromReader (SqlDataReader reader) {
+			Id = reader.GetInt32(reader.GetOrdinal("Id"));
+			FirstName = reader.GetString(reader.GetOrdinal("FirstName"));
+			LastName = reader.GetString(reader.GetOrdinal("LastName"));
+			Address = reader.GetString(reader.GetOrdinal("Address"));
+			City = reader.GetString(reader.GetOrdinal("City"));
+			State = reader.GetString(reader.GetOrdinal("State"));
+			Zipcode = reader.GetString(reader.GetOrdinal("Zipcode"));
+			PhoneNumber = reader.GetString(reader.GetOrdinal("PhoneNumber"));
+			Email = reader.GetString(reader.GetOrdinal("Email"));
+			Birthday = reader.GetDateTime(reader.GetOrdinal("Birthday"));
+			SAT = reader.GetInt32(reader.GetOrdinal("SAT"));
+			GPA = reader.GetDouble(reader.GetOrdinal("GPA"));
+			MajorId = -1;
+			if (!reader.GetValue(reader.GetOrdinal("Majorid")).Equals(DBNull.Value)) {
+				MajorId = reader.GetInt32(reader.GetOrdinal("MajorId"));
+			}
+		}
 	}
 }

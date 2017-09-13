@@ -30,56 +30,60 @@ namespace EducationLibrary {
 			//and then values are assigned to variables
 			SqlDataReader reader = cmd.ExecuteReader();
 			while (reader.Read()) {
-				var id = reader.GetInt32(reader.GetOrdinal("Id"));
-				var firstName = reader.GetString(reader.GetOrdinal("FirstName"));
-				var lastName = reader.GetString(reader.GetOrdinal("LastName"));
-				var address = reader.GetString(reader.GetOrdinal("Address"));
-				var city = reader.GetString(reader.GetOrdinal("City"));
-				var state = reader.GetString(reader.GetOrdinal("State"));
-				var zip = reader.GetString(reader.GetOrdinal("Zipcode"));
-				var phone = reader.GetString(reader.GetOrdinal("PhoneNumber"));
-				var email = reader.GetString(reader.GetOrdinal("Email"));
-				var birthday = reader.GetDateTime(reader.GetOrdinal("Birthday"));
-
-				var majorid = -1;
-				if (!reader.GetValue(reader.GetOrdinal("Majorid")).Equals(DBNull.Value)) {
-					majorid = reader.GetInt32(reader.GetOrdinal("MajorId"));
-				}
-
-				var sat = reader.GetInt32(reader.GetOrdinal("SAT"));
-				var gpa = reader.GetDouble(reader.GetOrdinal("GPA"));
-
-				//an instance of Student is created and the values previously harvested
-				//from the SQL database are assigned to the propertiest in the Stude
 				Student student = new Student();
-				student.Id = id;
-				student.FirstName = firstName;
-				student.LastName = lastName;
-				student.Address = address;
-				student.City = city;
-				student.State = state;
-				student.Zipcode = zip;
-				student.PhoneNumber = phone;
-				student.Email = email;
-				student.Birthday = birthday;
-				student.MajorId = majorid;
-				student.SAT = sat;
-				student.GPA = gpa;
+				student.SetDataFromReader(reader);
 				//list is added to students instance of StudentCollection
 				students.Add(student);
 			}
 			reader.Close();
 			connection.Close();
-			
-			//collection of Student (list of students w/ properties such as
-			// Id, FirstName, LastName, Address, etc.) is returned
 			return students;
 		}
-		public static Student Select(int id) {
-			return null;
+
+			public static Student Select(int id) {
+				string connStr = "Server=STUDENT05;Database=DotNetDatabase;Trusted_Connection=yes";
+				SqlConnection connection = new SqlConnection(connStr);
+				connection.Open();
+				if (connection.State != System.Data.ConnectionState.Open) {
+					Console.WriteLine("SQL connection did not open.");
+					return null;
+				}
+				StudentCollection students = new StudentCollection();
+				var sql = $"Select * from Student where Id = {id}";
+				SqlCommand cmd = new SqlCommand(sql, connection);
+				SqlDataReader reader = cmd.ExecuteReader();
+				while (reader.Read()) {
+					Student student = new Student();
+					student.SetDataFromReader(reader);
+					students.Add(student);
+				}
+				reader.Close();
+				connection.Close();
+				if(students.Count ==0) {
+					return null;
+			}
+				else {
+				return students[0];
+			}
 		}
 		public static bool Insert(Student student) {
-			return false;
+			string connStr = "Server=STUDENT05;Database=DotNetDatabase;Trusted_Connection=yes";
+			SqlConnection connection = new SqlConnection(connStr);
+			connection.Open();
+			if (connection.State != System.Data.ConnectionState.Open) {
+				Console.WriteLine("SQL connection did not open.");
+				return false;
+			}
+			StudentCollection students = new StudentCollection();
+			var sql = $"Insert into Student (FirstName, LastName, Address, City, State, Zipcode," +
+				$"PhoneNumber, Email, Birthday, MajorId, SAT, GPA)" +
+				$" VALUES " +
+				$"('{student.FirstName}', '{student.LastName}', '{student.Address}', '{student.City}'," +
+				$" '{student.State}', '{student.Zipcode}', '{student.PhoneNumber}', '{student.Email}', '{student.Birthday}'," +
+				$"{student.MajorId}, {student.SAT}, {student.GPA}";
+			SqlCommand cmd = new SqlCommand(sql, connection);
+			var recsAffected = cmd.ExecuteNonQuery();
+			return (recsAffected == 1);
 		}
 		public static bool Update(Student student) {
 			return false;
