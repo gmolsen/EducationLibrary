@@ -18,6 +18,6 @@ namespace EducationLibrary {
 		public DateTime Birthday { get; set; }
 		public int MajorId { get; set; }
 		public int SAT { get; set; }
-		public double GTA { get; set; }
+		public double GPA { get; set; }
 	}
 }
