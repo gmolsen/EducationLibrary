@@ -16,14 +16,14 @@ namespace TestEducationLibrary {
 			std.LastName = "Test";
 			std.Address = "Test";
 			std.City = "Test";
-			std.State = "Test";
+			std.State = "OH";
 			std.Zipcode = "Test";
 			std.Birthday = new DateTime(2017, 9, 13);
 			std.PhoneNumber = "5555555555";
 			std.Email = "666@666.org";
-			std.MajorId = "null";
-			std.SAT = "1600";
-			std.GPA = "4.0";
+			std.MajorId = 2;
+			std.SAT = 1600;
+			std.GPA = 4.0;
 			bool rc = StudentCollection.Insert(std);
 		}
 		static void Main(string[] args) {

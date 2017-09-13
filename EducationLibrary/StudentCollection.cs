@@ -80,7 +80,7 @@ namespace EducationLibrary {
 				$" VALUES " +
 				$"('{student.FirstName}', '{student.LastName}', '{student.Address}', '{student.City}'," +
 				$" '{student.State}', '{student.Zipcode}', '{student.PhoneNumber}', '{student.Email}', '{student.Birthday}'," +
-				$"{student.MajorId}, {student.SAT}, {student.GPA}";
+				$"{student.MajorId}, {student.SAT}, {student.GPA})";
 			SqlCommand cmd = new SqlCommand(sql, connection);
 			var recsAffected = cmd.ExecuteNonQuery();
 			return (recsAffected == 1);
